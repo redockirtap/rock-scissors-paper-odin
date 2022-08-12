@@ -8,7 +8,6 @@ function random() {
     return Math.floor(Math.random() * (maxNum - minNum + 1) + minNum);
 }
 
-
 function getComputerChoice() {
     ComputerChoice = gameChoices[random()].toLowerCase();
     console.log(ComputerChoice);
@@ -40,23 +39,6 @@ function playRound(PlayerChoice, ComputerChoice) {
     }
 }
 
-function game() {
-    for (let i = 0; i <= 4; i++) {
-        ComputerChoice = getComputerChoice();  // Calling and Returning a Computer choice
-        PlayerChoice = getPlayerChoice();  // Calling and Returning a Player Choice
-        msg = playRound(PlayerChoice, ComputerChoice); // Calling and Returning a message about win/lose
-        if (msg.startsWith('You win')) {
-            PlayerWin.push(i);
-            console.log(false);
-        } else if (msg.startsWith('You lose')) {
-            ComputerWin.push(i); 
-            console.log(true);
-        } else {
-            continue;
-        }
-    }
-    return checkScore(PlayerWin, ComputerWin);
-}
 
 function checkScore(PlayerWin, ComputerWin) {
     // game();
@@ -66,5 +48,19 @@ function checkScore(PlayerWin, ComputerWin) {
         return "You lose!"
     }
 }
+
+// Buttonz event listeners
+function logPlayerChoice(e) {
+    console.log(this.idList.value);
+}
+
+
+const rockBtn = document.querySelector('#rock');
+const paperBtn = document.querySelector('#paper');
+const scissorsBtn = document.querySelector('#scissors');
+rockBtn.addEventListener
+
+
+
 console.log(game());
 
