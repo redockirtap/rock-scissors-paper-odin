@@ -9,28 +9,24 @@ function random() {
 }
 
 function getComputerChoice() {
-    ComputerChoice = gameChoices[random()].toLowerCase();
-    console.log(ComputerChoice);
+    ComputerChoice = gameChoices[random()]; //.toLowerCase()
     return ComputerChoice;
 }
 
 function getPlayerChoice() {
     PlayerChoice = prompt('Your turn to choose (rock, paper, or scissors): ');
     PlayerChoice = PlayerChoice.toLowerCase();
-    // while (PlayerChoice !== 'rock' || PlayerChoice !== 'paper' || PlayerChoice !== 'scissors') {
-    //     PlayerChoice = prompt('You can choose only rock, paper, or scissors!');
-    //     return PlayerChoice;
-    // } 
     return PlayerChoice;
 }
 
-function playRound(PlayerChoice, ComputerChoice) {
+function playRound() {
+    getComputerChoice();
     if (PlayerChoice === ComputerChoice) {
         msg = "It's a tie!";
         return msg;
-    } else if (PlayerChoice === 'rock' && ComputerChoice === 'scissors' ||
-    PlayerChoice === 'scissors' && ComputerChoice === 'paper' || 
-    PlayerChoice === 'paper' && ComputerChoice === 'rock') {
+    } else if (PlayerChoice === 'Rock' && ComputerChoice === 'Scissors' ||
+    PlayerChoice === 'Scissors' && ComputerChoice === 'Paper' || 
+    PlayerChoice === 'Paper' && ComputerChoice === 'Rock') {
         msg = `You win! ${PlayerChoice} beats ${ComputerChoice}!`;
         return msg;
     } else {
@@ -51,16 +47,39 @@ function checkScore(PlayerWin, ComputerWin) {
 
 // Buttonz event listeners
 function logPlayerChoice(e) {
-    console.log(this.idList.value);
+    
+    switch (this.id) {
+        case 'rock':
+            e.stopPropagation();
+            PlayerChoice = gameChoices[0];
+            console.log(`I am ${PlayerChoice}!`);
+            break;
+        case 'paper':
+            e.stopPropagation();
+            PlayerChoice = gameChoices[1];
+            console.log(`I am ${PlayerChoice}!`);
+            break;
+        case 'scissors':
+            e.stopPropagation();   
+            PlayerChoice = gameChoices[2];
+            console.log(`I am ${PlayerChoice}!`);
+            break;
+    }
+
+    console.log(playRound());
+    // console.log(`I am ${this.id}!`);
+
 }
 
+const buttons = document.querySelectorAll('button');
 
-const rockBtn = document.querySelector('#rock');
-const paperBtn = document.querySelector('#paper');
-const scissorsBtn = document.querySelector('#scissors');
-rockBtn.addEventListener
+// const rockBtn = document.querySelector('#rock');
+// const paperBtn = document.querySelector('#paper');
+// const scissorsBtn = document.querySelector('#scissors');
+
+buttons.forEach(e => e.addEventListener('click', logPlayerChoice), {capture: false});
 
 
 
-console.log(game());
+// console.log(game());
 
