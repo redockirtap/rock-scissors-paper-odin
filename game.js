@@ -1,6 +1,6 @@
 const gameChoices = ['Rock', 'Paper', 'Scissors'];
-let PlayerWin = [];
-let ComputerWin = [];
+let PlayerScore = 0;
+let ComputerScore = 0;
 
 function random() { 
     maxNum = Math.ceil(2);
@@ -13,14 +13,8 @@ function getComputerChoice() {
     return ComputerChoice;
 }
 
-function getPlayerChoice() {
-    PlayerChoice = prompt('Your turn to choose (rock, paper, or scissors): ');
-    PlayerChoice = PlayerChoice.toLowerCase();
-    return PlayerChoice;
-}
-
 function playRound() {
-    getComputerChoice();
+    // console.log(PlayerChoice, ComputerChoice);
     if (PlayerChoice === ComputerChoice) {
         msg = "It's a tie!";
         return msg;
@@ -28,58 +22,95 @@ function playRound() {
     PlayerChoice === 'Scissors' && ComputerChoice === 'Paper' || 
     PlayerChoice === 'Paper' && ComputerChoice === 'Rock') {
         msg = `You win! ${PlayerChoice} beats ${ComputerChoice}!`;
+        PlayerScore++;
         return msg;
     } else {
         msg = `You lose! ${ComputerChoice} beats ${PlayerChoice}!`;
+        ComputerScore++;
         return msg;
     }
 }
 
-
-function checkScore(PlayerWin, ComputerWin) {
-    // game();
-    if (PlayerWin > ComputerWin) {
-        return "You win!"
-    } else {
-        return "You lose!"
+function checkScore(PlayerScore, ComputerScore) {
+    console.log(PlayerScore, ComputerScore);
+    if (PlayerScore === 5) {
+        alert("You win!");
+        PlayerScore = 0;
+        ComputerScore = 0;
+        return PlayerScore, ComputerScore;
+    } else if (ComputerScore === 5) {
+        alert("You lose!");
+        PlayerScore = 0;
+        ComputerScore = 0;
+        return PlayerScore, ComputerScore;
     }
 }
 
 // Buttonz event listeners
-function logPlayerChoice(e) {
+function logPlayerChoice() {
+    
     
     switch (this.id) {
         case 'rock':
-            e.stopPropagation();
+            // e.stopPropagation();
             PlayerChoice = gameChoices[0];
-            console.log(`I am ${PlayerChoice}!`);
             break;
         case 'paper':
-            e.stopPropagation();
+            // e.stopPropagation();
             PlayerChoice = gameChoices[1];
-            console.log(`I am ${PlayerChoice}!`);
             break;
         case 'scissors':
-            e.stopPropagation();   
+            // e.stopPropagation();   
             PlayerChoice = gameChoices[2];
-            console.log(`I am ${PlayerChoice}!`);
             break;
     }
 
-    console.log(playRound());
-    // console.log(`I am ${this.id}!`);
+    
+    
+    getComputerChoice();
+    playRound();
+    checkScore(PlayerScore, ComputerScore);
 
+
+    msgDiv.classList.add('message');
+    msgDiv.textContent = msg;
+    scoreWindow.appendChild(msgDiv);
 }
 
+function addScoreWindow() {
+    scoreWindow.classList.add('score-window');
+    body.appendChild(scoreWindow);
+};
+
+function addScoresCount() {
+    // Label
+    label.classList.add('label');
+    label.textContent = "Game Score";
+    scoreWindow.appendChild(label);
+
+    // Add player and computer score counter
+
+    scoreCounters.classList.add('score-counter');
+    scoreCounters.textContent = `Player Score: ${PlayerScore}\n Computer Score: ${ComputerScore}`;
+    scoreWindow.append(scoreCounters);
+
+};
+
+
+// Buttons selector
 const buttons = document.querySelectorAll('button');
 
-// const rockBtn = document.querySelector('#rock');
-// const paperBtn = document.querySelector('#paper');
-// const scissorsBtn = document.querySelector('#scissors');
+// Score window selector
+const body = document.querySelector('body');
+const scoreWindow = document.createElement('div');
+
+// Table of scores 
+const label = document.createElement('p');
+const scoreCounters = document.createElement('p');
+const msgDiv = document.createElement('div');
 
 buttons.forEach(e => e.addEventListener('click', logPlayerChoice), {capture: false});
-
-
-
-// console.log(game());
+buttons.forEach(e => e.addEventListener('click', addScoreWindow), {once: true});
+buttons.forEach(e => e.addEventListener('click', addScoresCount), {once: true});
+// buttons.forEach(e => e.addEventListener('click', logPlayerChoice), {capture: false});
 
