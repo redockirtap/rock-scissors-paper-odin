@@ -31,18 +31,18 @@ function playRound() {
     }
 }
 
-function checkScore(PlayerScore, ComputerScore) {
+function checkScore() {
     console.log(PlayerScore, ComputerScore);
     if (PlayerScore === 5) {
         alert("You win!");
         PlayerScore = 0;
         ComputerScore = 0;
-        return PlayerScore, ComputerScore;
+        // return PlayerScore, ComputerScore;
     } else if (ComputerScore === 5) {
         alert("You lose!");
         PlayerScore = 0;
         ComputerScore = 0;
-        return PlayerScore, ComputerScore;
+        // return PlayerScore, ComputerScore;
     }
 }
 
@@ -69,7 +69,7 @@ function logPlayerChoice() {
     
     getComputerChoice();
     playRound();
-    checkScore(PlayerScore, ComputerScore);
+    checkScore();
 
 
     msgDiv.classList.add('message');
@@ -112,5 +112,6 @@ const msgDiv = document.createElement('div');
 buttons.forEach(e => e.addEventListener('click', logPlayerChoice), {capture: false});
 buttons.forEach(e => e.addEventListener('click', addScoreWindow), {once: true});
 buttons.forEach(e => e.addEventListener('click', addScoresCount), {once: true});
-// buttons.forEach(e => e.addEventListener('click', logPlayerChoice), {capture: false});
+// buttons.forEach(e => e.addEventListener('click', checkScore), {once: true});
+
 
